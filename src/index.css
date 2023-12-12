@@ -1,0 +1,72 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+.game {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.field-row::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+  position: relative;
+}
+
+.square:focus {
+  outline: none;
+}
+
+.square.visibleShip {
+  background: #ddd;
+}
+
+.square span.leftLine {
+  position: absolute;
+  top: -2px;
+  left: -2rem;
+}
+
+.square span.topLine {
+  position: absolute;
+  top: -2.4rem;
+  left: 8px;
+}
+
+.gamelog {
+  margin-left: 30px;
+}
+
+.gamelog-header {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.gamelog-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.gamelog-list li {
+  font-size: 18px;
+  font-weight: bold;
+}
