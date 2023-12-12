@@ -1,5 +1,5 @@
-export default (fields, ship) => {
-    const copyFields = [...fields];
+export default (fields, ship, currentField) => {
+    const copyFields = [...fields[currentField]];
 
     switch(ship.direction) {
         case 'right': 
@@ -16,5 +16,5 @@ export default (fields, ship) => {
             break;
     }
 
-    return copyFields;
+    return { ...fields, [currentField]: copyFields };
 }

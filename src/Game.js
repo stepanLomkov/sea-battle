@@ -10,45 +10,65 @@ function randomInteger(min, max) {
 }
 
 export function Game () {
-  const [enemyFields, setEnemyFields] = useState(Array(10).fill().map((_, x) => Array(10).fill().map((_, y) => ({
-    x,
-    y,
-    containsShip: false,
-    shot: false,
-    shipId: null,
-  }))));
-  const [enemyShips] = useState([...getSet(randomInteger(0, 2))]);
+  const [enemyFields, setEnemyFields] = useState({
+    player1: Array(10).fill().map((_, x) => Array(10).fill().map((_, y) => ({
+      x,
+      y,
+      containsShip: false,
+      shot: false,
+      shipId: null,
+    }))),
+    player2: Array(10).fill().map((_, x) => Array(10).fill().map((_, y) => ({
+      x,
+      y,
+      containsShip: false,
+      shot: false,
+      shipId: null,
+    }))),
+  });
+  const [enemyShips] = useState({
+    player1: [...getSet(randomInteger(0, 2))],
+    player2: [...getSet(randomInteger(0, 2))],
+  });
   const [gameOver, setGameOver] = useState(false);
   const [logs, setLogs] = useState(['Ожидание хода...']);
+  const [currentPlayerIsFirst, setCurrentPlayerIsFirst] = useState(true);
 
   useEffect(() => {
-    enemyShips.forEach(ship => {
-      setEnemyFields(placeShip(enemyFields, ship));
+    enemyShips.player1.forEach(ship => {
+      setEnemyFields(placeShip(enemyFields, ship, 'player1'));
+    });
+    enemyShips.player2.forEach(ship => {
+      setEnemyFields(placeShip(enemyFields, ship, 'player2'));
     });
   }, []);
 
   const handleClick = (x, y) => {
-    if (gameOver || enemyFields[x][y].shot) {
+    const currentField = currentPlayerIsFirst ? 'player1' : 'player2';
+    const currentPlayerName = currentPlayerIsFirst ? 'Игрок 1' : 'Игрок 2';
+  
+    if (gameOver || enemyFields[currentField][x][y].shot) {
       return;
     }
 
-    const newFields = [...enemyFields];
+    const newFields = [...enemyFields[currentField]];
     newFields[x][y].shot = true;
 
-    setEnemyFields(newFields);
-
+    setEnemyFields((prevFields) => { return { ...prevFields, [currentField]: newFields }; });
+    
     if (newFields[x][y].containsShip) {
-      const hittedShip = enemyShips.find(ship => (ship.id === newFields[x][y].shipId));
+      const hittedShip = enemyShips[currentField].find(ship => (ship.id === newFields[x][y].shipId));
 
       hittedShip.hitpoints--;
-      setLogs(prevLogs => [...prevLogs, hittedShip.hitpoints > 0 ? 'Попадание!' : 'Корабль уничтожен!']);
+      setLogs(prevLogs => [...prevLogs, hittedShip.hitpoints > 0 ? `${currentPlayerName}: Попадание!` : `${currentPlayerName}: Уничтожил корабль!`]);
 
-      if (enemyShips.every(ship => (ship.hitpoints === 0))) {
-        setLogs(prevLogs => [...prevLogs, 'Игра окончена.']);
+      if (enemyShips[currentField].every(ship => (ship.hitpoints === 0))) {
+        setLogs(prevLogs => [...prevLogs, `Игра окончена. Победил: ${currentPlayerName}`]);
         setGameOver(true);
       }
     } else {
-      setLogs(prevLogs => [...prevLogs, 'Мимо!']);
+      setLogs(prevLogs => [...prevLogs, `${currentPlayerName}: Мимо!`]);
+      setCurrentPlayerIsFirst(prevCurrentPlayerIsFirst => !prevCurrentPlayerIsFirst);
     }
   }
     
@@ -56,10 +76,13 @@ export function Game () {
   return (
     <div className="game">
       <Field 
-        enemyFields={ enemyFields } 
+        enemyFields={ enemyFields[currentPlayerIsFirst ? 'player1' : 'player2'] } 
         onClick={ handleClick }
       />
-      <GameLog logs={logs} />
+      <GameLog
+        currentPlayerIsFirst={ currentPlayerIsFirst }
+        logs={ logs }
+      />
     </div>
   );
 }
