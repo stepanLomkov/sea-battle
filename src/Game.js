@@ -27,8 +27,8 @@ export function Game () {
     }))),
   });
   const [enemyShips] = useState({
-    player1: [...getSet(randomInteger(0, 2))],
-    player2: [...getSet(randomInteger(0, 2))],
+    player1: [...getSet(randomInteger(0, 4))],
+    player2: [...getSet(randomInteger(0, 4))],
   });
   const [gameOver, setGameOver] = useState(false);
   const [logs, setLogs] = useState(['Ожидание хода...']);

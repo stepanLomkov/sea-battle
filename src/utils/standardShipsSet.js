@@ -50,6 +50,30 @@ export function getSet(i) {
             set.push(getShip(1, { x: 6, y: 8 }, 'right'));
             set.push(getShip(1, { x: 9, y: 9 }, 'right'));
             break;
+        case 3:
+            set.push(getShip(4, { x: 6, y: 4 }, 'right'));
+            set.push(getShip(3, { x: 6, y: 0 }, 'down'));
+            set.push(getShip(3, { x: 8, y: 6 }, 'down'));
+            set.push(getShip(2, { x: 8, y: 1 }, 'down'));
+            set.push(getShip(2, { x: 5, y: 6 }, 'right'));
+            set.push(getShip(2, { x: 4, y: 9 }, 'right'));
+            set.push(getShip(1, { x: 1, y: 2 }, 'right'));
+            set.push(getShip(1, { x: 3, y: 3 }, 'right'));
+            set.push(getShip(1, { x: 0, y: 8 }, 'right'));
+            set.push(getShip(1, { x: 2, y: 8 }, 'right'));
+            break;
+        case 4:
+            set.push(getShip(4, { x: 8, y: 4 }, 'down'));
+            set.push(getShip(3, { x: 8, y: 0 }, 'down'));
+            set.push(getShip(3, { x: 6, y: 9 }, 'right'));
+            set.push(getShip(2, { x: 6, y: 0 }, 'down'));
+            set.push(getShip(2, { x: 6, y: 3 }, 'down'));
+            set.push(getShip(2, { x: 6, y: 6 }, 'down'));
+            set.push(getShip(1, { x: 1, y: 1 }, 'right'));
+            set.push(getShip(1, { x: 4, y: 1 }, 'right'));
+            set.push(getShip(1, { x: 1, y: 8 }, 'right'));
+            set.push(getShip(1, { x: 4, y: 8 }, 'right'));
+            break;
     }
 
     return set;
