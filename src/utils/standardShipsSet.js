@@ -24,7 +24,7 @@ export function getSet(i) {
             set.push(getShip(1, { x: 9, y: 3 }, 'right'));
             set.push(getShip(1, { x: 4, y: 5 }, 'right'));
             set.push(getShip(1, { x: 9, y: 6 }, 'right'));
-            set.push(getShip(1, { x: 9, y: 9 }, 'right'));
+            set.push(getShip(1, { x: 9, y: 1 }, 'right'));
             break;
         case 1:
             set.push(getShip(4, { x: 0, y: 9 }, 'right'));
